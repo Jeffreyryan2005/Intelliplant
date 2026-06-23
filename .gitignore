@@ -1,0 +1,19 @@
+# Python / Backend
+venv/
+__pycache__/
+*.pyc
+.env
+uploads/
+chroma_db/
+graph_data/
+
+# Node / Frontend
+node_modules/
+.next/
+out/
+.env.local
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/

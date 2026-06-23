@@ -1,0 +1,8 @@
+equipment_id,equipment_name,failure_date,failure_mode,root_cause,downtime_hours,repair_cost,severity
+P-101A,Centrifugal Pump P-101A,2024-07-20,High Vibration,Impeller Imbalance,48,15000,critical
+P-101B,Centrifugal Pump P-101B,2023-11-05,Seal Leak,O-ring degradation,12,3000,medium
+C-201,Reciprocating Compressor C-201,2024-02-14,Valve Failure,Fatigue,72,45000,critical
+E-103,Heat Exchanger E-103,2024-08-14,Flange Leak,Improper Torqueing,24,5000,medium
+V-305,Control Valve V-305,2024-05-10,Stuck Open,Actuator diaphragm rupture,8,1200,low
+P-102,Bottoms Pump P-102,2023-09-22,Bearing Failure,Loss of lubrication,36,18000,high
+F-101,CDU Furnace F-101,2024-01-08,Burner fouling,Poor fuel gas quality,16,8000,high
