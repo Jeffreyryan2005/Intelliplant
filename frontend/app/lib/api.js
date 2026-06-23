@@ -3,7 +3,7 @@
 // ============================================================
 import * as DemoData from './demoData';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://intelliplant-f25r.onrender.com';
 
 export async function fetchAPI(endpoint, options = {}) {
   const url = `${API_URL}${endpoint}`;

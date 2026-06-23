@@ -94,7 +94,7 @@ I recommend reviewing the linked source documents for detailed specifications. T
     setIsTyping(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/copilot/chat`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://intelliplant-f25r.onrender.com'}/api/copilot/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
