@@ -10,6 +10,7 @@ from app.models.schemas import (
 from app.services.document_processor import doc_processor
 from app.services.rag_pipeline import rag_pipeline
 from app.services.knowledge_graph import knowledge_graph
+from app.services.pid_vision import pid_vision_parser
 
 router = APIRouter(prefix="/documents", tags=["Documents"])
 settings = get_settings()
@@ -116,3 +117,26 @@ async def delete_document(doc_id: str):
     # Ideally we'd remove edges specifically related to this document
     
     return SuccessResponse(message="Document deleted successfully.")
+
+@router.post("/{doc_id}/parse-pid", response_model=SuccessResponse)
+async def parse_pid_drawing(doc_id: str):
+    """Run vision AI on a P&ID document to extract equipment and connections."""
+    doc = doc_processor.get_document(doc_id)
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+    
+    file_path = settings.UPLOAD_DIR / doc.metadata.filename
+    result = await pid_vision_parser.parse_pid_image(str(file_path))
+    
+    # Auto-add extracted entities to knowledge graph
+    if result.get("equipment"):
+        from app.services.knowledge_graph import knowledge_graph
+        # Convert to entity format and add
+        entities = [{"tag": e["tag"], "type": e["type"]} for e in result["equipment"]]
+        if hasattr(knowledge_graph, 'add_pid_entities'):
+            knowledge_graph.add_pid_entities(doc_id, entities, result.get("connections", []))
+        else:
+            # Fallback if add_pid_entities doesn't exist
+            pass
+    
+    return SuccessResponse(data=result, message=f"P&ID parsed: {len(result.get('equipment', []))} equipment, {len(result.get('instruments', []))} instruments found.")

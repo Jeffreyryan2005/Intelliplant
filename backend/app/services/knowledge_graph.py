@@ -194,6 +194,38 @@ class KnowledgeGraphService:
         for reg in reg_nodes:
             _link(reg, doc_node_id, "REFERENCED_BY", "referenced by")
 
+    def add_pid_entities(self, doc_id: str, entities: list[dict], connections: list[dict]) -> None:
+        """Add P&ID specific entities and connections to the graph."""
+        doc_node_id = f"DOC:{doc_id}"
+        
+        # Add equipment/instrument nodes
+        for e in entities:
+            node_id = self._node_id(e["tag"], e["type"])
+            if not self.graph.has_node(node_id):
+                self.graph.add_node(
+                    node_id,
+                    label=e["tag"],
+                    type=e.get("type", "Equipment"),
+                    properties={"mentioned_in": [doc_id]}
+                )
+            
+            # Link to document
+            if not self.graph.has_edge(node_id, doc_node_id):
+                self.graph.add_edge(node_id, doc_node_id, type="MENTIONED_IN", label="mentioned in")
+                
+        # Add process connections
+        for conn in connections:
+            from_node = self._node_id(conn.get("from", ""), "Equipment")  # simplified type inference
+            to_node = self._node_id(conn.get("to", ""), "Equipment")
+            
+            # Only add edge if both nodes exist (to avoid creating orphaned nodes)
+            if self.graph.has_node(from_node) and self.graph.has_node(to_node):
+                if not self.graph.has_edge(from_node, to_node):
+                    self.graph.add_edge(from_node, to_node, type="PROCESS_CONNECTION", label=conn.get("type", "connected to"), properties={"spec": conn.get("spec", "")})
+        
+        self.save()
+        logger.info("Added P&ID entities from document %s", doc_id)
+
     def remove_document(self, doc_id: str) -> None:
         """
         Remove a document and its orphaned entities from the graph.

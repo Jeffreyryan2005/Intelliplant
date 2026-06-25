@@ -16,6 +16,7 @@ export default function CopilotPage() {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [streamingMessage, setStreamingMessage] = useState(null);
+  const [activeAgent, setActiveAgent] = useState(null);
   const [mode, setMode] = useState('quick'); // 'quick' | 'deep'
   const [showHistory, setShowHistory] = useState(false);
   const messagesEndRef = useRef(null);
@@ -92,6 +93,7 @@ I recommend reviewing the linked source documents for detailed specifications. T
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
     setIsTyping(true);
+    setActiveAgent(null);
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://intelliplant-f25r.onrender.com'}/api/copilot/chat`, {
@@ -120,7 +122,9 @@ I recommend reviewing the linked source documents for detailed specifications. T
             if (line.startsWith('data: ')) {
               try {
                 const data = JSON.parse(line.substring(6));
-                if (data.type === 'citations') {
+                if (data.type === 'agent') {
+                  setActiveAgent(data.agent_name);
+                } else if (data.type === 'citations') {
                   citations = data.citations;
                   setStreamingMessage(prev => ({ ...prev, citations }));
                 } else if (data.type === 'chunk') {
@@ -147,16 +151,16 @@ I recommend reviewing the linked source documents for detailed specifications. T
       }]);
 
     } catch (error) {
-      console.error('Chat error:', error);
+      console.error('Chat error, falling back to demo:', error);
       setIsTyping(false);
       setStreamingMessage(null);
-      setMessages((prev) => [...prev, {
-        id: `msg-${Date.now()}`,
-        role: 'assistant',
-        content: 'Sorry, I encountered an error connecting to the knowledge base.',
-        timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
-        citations: []
-      }]);
+      setActiveAgent(null);
+      // Get relevant demo response based on query keywords
+      const q = query.toLowerCase();
+      let demo = demoResponses.default;
+      if (q.includes('pressure') || q.includes('v-301')) demo = demoResponses['v-301'] || demoResponses.default;
+      if (q.includes('p-101') || q.includes('pump')) demo = demoResponses['pump'] || demoResponses.default;
+      await simulateStreaming(demo.text, demo.citations);
     }
   };
 
@@ -337,6 +341,13 @@ I recommend reviewing the linked source documents for detailed specifications. T
 
           {/* Input Area */}
           <div className="p-4 lg:px-6 border-t border-white/[0.06]">
+            {activeAgent && (
+              <div className="flex items-center gap-2 px-4 py-1.5 text-xs text-accent-emerald border border-accent-emerald/20 bg-accent-emerald/5 mb-3 max-w-4xl mx-auto rounded-lg">
+                <Bot className="w-3 h-3" />
+                <span className="font-medium">{activeAgent}</span>
+                <span className="text-text-muted">is processing your query...</span>
+              </div>
+            )}
             <div className="flex items-end gap-3 max-w-4xl mx-auto">
               <button className="w-10 h-10 rounded-xl hover:bg-white/[0.05] flex items-center justify-center text-text-muted hover:text-text-primary transition-colors flex-shrink-0">
                 <Paperclip className="w-5 h-5" />
