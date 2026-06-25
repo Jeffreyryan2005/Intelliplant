@@ -51,7 +51,12 @@ async def process_document_task(file_path, doc_id: str):
         doc_detail = await doc_processor.process_file(file_path, doc_id)
         
         # 2. Add to Knowledge Graph
-        knowledge_graph.add_document_entities(doc_detail)
+        knowledge_graph.add_document(
+            doc_id=doc_detail.doc_id,
+            filename=doc_detail.metadata.filename,
+            entities=doc_detail.entities,
+            sections=doc_detail.sections,
+        )
         
         # 3. Add to RAG pipeline
         chunks = doc_detail.sections if doc_detail.sections else [doc_detail.text_content]

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import get_settings
-from app.routes import documents, graph, copilot, maintenance, compliance
+from app.routes import documents, graph, copilot, maintenance, compliance, qms, lessons
 
 settings = get_settings()
 
@@ -28,6 +28,8 @@ app.include_router(graph.router, prefix="/api", tags=["graph"])
 app.include_router(copilot.router, prefix="/api", tags=["copilot"])
 app.include_router(maintenance.router, prefix="/api", tags=["maintenance"])
 app.include_router(compliance.router, prefix="/api", tags=["compliance"])
+app.include_router(qms.router, prefix="/api", tags=["qms"])
+app.include_router(lessons.router, prefix="/api", tags=["lessons"])
 
 @app.get("/api/health", tags=["health"])
 async def health_check():

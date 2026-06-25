@@ -8,7 +8,7 @@ router = APIRouter(prefix="/graph", tags=["Knowledge Graph"])
 @router.get("", response_model=SuccessResponse)
 async def get_full_graph():
     """Get the full knowledge graph (nodes and edges)."""
-    data = knowledge_graph.get_graph_data()
+    data = knowledge_graph.to_d3_json()
     return SuccessResponse(data=data.model_dump())
 
 @router.get("/search", response_model=SuccessResponse)
@@ -20,7 +20,7 @@ async def search_graph(query: str):
 @router.get("/node/{node_id}", response_model=SuccessResponse)
 async def get_node_detail(node_id: str):
     """Get a specific node and its connected neighbours."""
-    detail = knowledge_graph.get_node_details(node_id)
+    detail = knowledge_graph.get_node_detail(node_id)
     if not detail:
         raise HTTPException(status_code=404, detail="Node not found in graph")
     return SuccessResponse(data=detail.model_dump())

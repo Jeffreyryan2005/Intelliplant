@@ -1,14 +1,28 @@
 import uuid
+import json
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 
 from app.models.schemas import SuccessResponse, ChatRequest, ChatResponse, SuggestedQuestion
 from app.services.rag_pipeline import rag_pipeline
+from app.services.agents import orchestrator
 
 router = APIRouter(prefix="/copilot", tags=["Copilot"])
 
 # In-memory conversation history (for hackathon)
 conversation_store = {}
+
+
+async def _streaming_with_agent(query: str, history: list):
+    """Wrap the RAG streaming generator with an agent identification event."""
+    # Emit agent routing info before anything else
+    routing = orchestrator.route_query(query)
+    yield f"data: {json.dumps({'type': 'agent', 'agent_name': routing['agent_name']})}\n\n"
+
+    # Then stream citations + LLM chunks from the RAG pipeline
+    async for event in rag_pipeline.stream_chat_response(query, history):
+        yield event
+
 
 @router.post("/chat")
 async def chat_with_copilot(request: ChatRequest):
@@ -25,11 +39,12 @@ async def chat_with_copilot(request: ChatRequest):
         
     history = conversation_store[conv_id]
     
-    # Return streaming response
+    # Return streaming response with agent routing
     return StreamingResponse(
-        rag_pipeline.stream_chat_response(request.query, history),
+        _streaming_with_agent(request.query, history),
         media_type="text/event-stream"
     )
+
 
 @router.post("/chat/fallback", response_model=SuccessResponse)
 async def chat_fallback(request: ChatRequest):

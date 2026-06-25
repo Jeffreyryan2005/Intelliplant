@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, FileText, MessageSquare, Share2,
   Wrench, ShieldCheck, ChevronLeft, ChevronRight,
-  Brain, Zap, Menu, X,
+  Brain, Zap, Menu, X, BookOpen,
 } from 'lucide-react';
 
 const navItems = [
@@ -17,6 +17,8 @@ const navItems = [
   { href: '/graph', label: 'Knowledge Graph', icon: Share2 },
   { href: '/maintenance', label: 'Maintenance', icon: Wrench },
   { href: '/compliance', label: 'Compliance', icon: ShieldCheck },
+  { href: '/lessons', label: 'Lessons Learned', icon: BookOpen },
+  { href: '/qms', label: 'Quality (QMS)', icon: ShieldCheck },
 ];
 
 export default function Sidebar() {
