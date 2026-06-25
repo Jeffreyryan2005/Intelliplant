@@ -1,8 +1,8 @@
 <div align="center">
   <img src="assets/hero.png" alt="IntelliPlant Hero" width="100%" />
   
-  # IntelliPlant
-  **AI for Industrial Knowledge Intelligence: Unified Asset & Operations Brain**
+  # Atlas AI
+  **Industrial Brain OS for Knowledge Intelligence**
   
   <p align="center">
     <a href="#features">Features</a> •
@@ -18,9 +18,9 @@
 
 **Problem Statement 8:** *AI for Industrial Knowledge Intelligence*
 
-IntelliPlant is a comprehensive AI-powered knowledge engine designed specifically for petrochemical plants and heavy industrial environments. It ingests vast amounts of unstructured engineering documentation (SOPs, P&IDs, maintenance logs, inspection reports) and transforms them into an intelligent, unified operations brain.
+Atlas AI is a comprehensive AI-powered knowledge engine designed specifically for petrochemical plants and heavy industrial environments. It ingests vast amounts of unstructured engineering documentation (SOPs, P&IDs, maintenance logs, inspection reports) and transforms them into an intelligent, unified operations brain.
 
-Built for the demanding environments of modern refineries, IntelliPlant guarantees real-time contextual awareness, instantly resolving complex technical queries and drastically reducing operational downtime.
+Built for the demanding environments of modern refineries, Atlas AI guarantees real-time contextual awareness, instantly resolving complex technical queries and drastically reducing operational downtime.
 
 ---
 
@@ -36,7 +36,7 @@ Built for the demanding environments of modern refineries, IntelliPlant guarante
 
 ## 🏗️ Architecture
 
-IntelliPlant utilizes a decoupled modern architecture:
+Atlas AI utilizes a decoupled modern architecture:
 
 1.  **Frontend (Next.js):** A premium UI featuring Framer Motion for smooth animations, Recharts for analytics, and react-force-graph-2d for the dynamic knowledge graph. It connects to the backend via stateless REST APIs.
 2.  **Backend (FastAPI):** A high-performance Python backend that handles document ingestion (PyMuPDF), knowledge graph construction (NetworkX), and vector search (Scikit-Learn).
@@ -116,7 +116,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 npm run dev
 ```
 
-Navigate to `http://localhost:3000` to view the IntelliPlant dashboard!
+Navigate to `http://localhost:3000` to view the Atlas AI dashboard!
 
 ---
 

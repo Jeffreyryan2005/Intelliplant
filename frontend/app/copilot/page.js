@@ -184,9 +184,43 @@ The SOP document needs to be updated to reflect the new gradual warm-up phase.`,
       // Get relevant demo response based on query keywords
       const q = query.toLowerCase();
       let demo = demoResponses.default;
-      if (q.includes('pressure') || q.includes('v-301')) demo = demoResponses['v-301'] || demoResponses.default;
-      if (q.includes('p-101') || q.includes('pump') || q.includes('analysis')) demo = demoResponses['p-101a'] || demoResponses.default;
-      await simulateStreaming(demo.text, demo.citations);
+      
+      if (q.includes('pressure') || q.includes('v-301')) {
+        demo = demoResponses['v-301'] || demoResponses.default;
+        await simulateStreaming(demo.text, demo.citations);
+      } else if (q.includes('p-101') || q.includes('pump') || q.includes('analysis')) {
+        demo = demoResponses['p-101a'] || demoResponses.default;
+        
+        // --- High-Impact 90-Second Simulation Sequence ---
+        const steps = [
+          { text: "Ingesting P&ID Drawing: BPL-PID-CDU-001.pdf...", agent: "Document Agent", delay: 1800 },
+          { text: "Extracting assets and specifications using Vision AI...", agent: "P&ID Vision Agent", delay: 2200 },
+          { text: "Updating Knowledge Graph with Pump P-101A...", agent: "Knowledge Agent", delay: 1500 },
+          { text: "Retrieving mechanical history and sensor logs...", agent: "Knowledge Agent", delay: 1800 },
+          { text: "Running predictive Root Cause Analysis (RCA)...", agent: "Maintenance Agent", delay: 2500 },
+          { text: "Verifying OISD-117 & PESO Regulatory Compliance...", agent: "Compliance Agent", delay: 2000 },
+          { text: "Querying historical incidents & near-miss database...", agent: "Lessons Agent", delay: 1800 },
+          { text: "Compiling multi-agent swarm report...", agent: "Atlas AI Copilot", delay: 1200 }
+        ];
+
+        for (const step of steps) {
+          setActiveAgent(step.agent);
+          setStreamingMessage({
+            id: 'msg-stream',
+            role: 'assistant',
+            content: `⏳ *${step.text}*`,
+            timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
+            citations: []
+          });
+          await new Promise(r => setTimeout(r, step.delay));
+        }
+        
+        setStreamingMessage(null);
+        setActiveAgent(null);
+        await simulateStreaming(demo.text, demo.citations);
+      } else {
+        await simulateStreaming(demo.text, demo.citations);
+      }
     }
   };
 
