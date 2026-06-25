@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import MetricCard from './components/MetricCard';
 import TimelineItem from './components/TimelineItem';
 import PageTransition from './components/PageTransition';
+import DemoOverlay from './components/DemoOverlay';
 import { dashboardMetrics, recentActivity, systemHealth, PLANT_INFO } from './lib/demoData';
 import {
   FileText, Brain, Cpu, ShieldCheck,
@@ -19,8 +21,11 @@ const quickActions = [
 ];
 
 export default function DashboardPage() {
+  const [showDemo, setShowDemo] = useState(false);
+
   return (
     <PageTransition>
+      {showDemo && <DemoOverlay onClose={() => setShowDemo(false)} />}
       <div className="p-4 lg:p-6 space-y-6">
         {/* Hero */}
         <motion.div
@@ -38,6 +43,13 @@ export default function DashboardPage() {
                 <Sparkles className="w-3.5 h-3.5" />
                 Intelligence Active
               </span>
+              <button 
+                onClick={() => setShowDemo(true)}
+                className="ml-auto px-4 py-1.5 rounded-full bg-gradient-to-r from-accent-blue to-accent-purple text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-accent-blue/20 hover:scale-105 transition-transform flex items-center gap-2"
+              >
+                <Activity className="w-3.5 h-3.5" />
+                Start Live Demo
+              </button>
             </div>
             <h1 className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
               Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue via-accent-cyan to-accent-emerald">Atlas AI</span>
