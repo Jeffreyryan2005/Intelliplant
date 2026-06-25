@@ -1,6 +1,4 @@
-
-  
-  # Atlas AI
+<p align="center">  # Atlas AI
   **Industrial Brain OS for Knowledge Intelligence**
   
   <p align="center">
