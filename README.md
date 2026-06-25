@@ -1,5 +1,5 @@
-<p align="center">  # Atlas AI
-  **Industrial Brain OS for Knowledge Intelligence**
+# Atlas AI
+**Industrial Brain OS for Knowledge Intelligence**
   
   <p align="center">
     <a href="#features">Features</a> •
