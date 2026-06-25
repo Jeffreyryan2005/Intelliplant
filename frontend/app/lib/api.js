@@ -92,7 +92,7 @@ export async function getDashboard() {
 
 export async function getMaintenanceDashboard() {
   const data = await fetchAPI('/api/maintenance/equipment');
-  if (data?.data && data.data.length > 0) return data.data;
+  if (data?.data && data.data.length > 0 && data.data[0].failureHistory) return data.data;
   return DemoData.equipmentList;
 }
 
@@ -103,7 +103,8 @@ export async function getEquipmentById(id) {
 
 export async function getComplianceOverview() {
   const data = await fetchAPI('/api/compliance');
-  return data || DemoData.complianceData;
+  if (data?.data && data.data.regulations && data.data.regulations[0]?.gaps) return data.data;
+  return DemoData.complianceData;
 }
 
 export async function searchKnowledge(query) {
