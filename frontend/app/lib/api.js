@@ -92,7 +92,8 @@ export async function getDashboard() {
 
 export async function getMaintenanceDashboard() {
   const data = await fetchAPI('/api/maintenance/equipment');
-  return data?.data || DemoData.equipmentList;
+  if (data?.data && data.data.length > 0) return data.data;
+  return DemoData.equipmentList;
 }
 
 export async function getEquipmentById(id) {

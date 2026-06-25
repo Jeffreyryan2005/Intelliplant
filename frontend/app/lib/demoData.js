@@ -463,11 +463,11 @@ export const chatConversations = [
 ];
 
 export const suggestedQuestions = [
+  'Perform complete analysis on Pump P-101A (RCA, Compliance, Lessons)',
   'What is the maximum operating pressure for Vessel V-301?',
   'Show me the maintenance history for Pump P-101A',
   'What are the OISD-117 compliance gaps?',
   'Explain the emergency shutdown procedure for the hydrocracker',
-  'What chemicals are processed in the CDU unit?',
   'Generate a root cause analysis for compressor C-301 failures',
 ];
 

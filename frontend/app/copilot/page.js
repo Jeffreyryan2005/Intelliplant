@@ -8,7 +8,7 @@ import { demoChatMessages, suggestedQuestions, chatConversations } from '../lib/
 import {
   Send, Paperclip, MessageSquare, Plus, Clock,
   Sparkles, Zap, Brain, ChevronRight, Settings,
-  Bot, RotateCcw, Lightbulb,
+  Bot, RotateCcw, Lightbulb, ShieldCheck, Wrench, FileText, Share2, Eye, BookOpen,
 } from 'lucide-react';
 
 export default function CopilotPage() {
@@ -77,6 +77,32 @@ I recommend reviewing the linked source documents for detailed specifications. T
         { id: 'c1', document: 'CDU Unit P&ID Drawing Rev.12', excerpt: 'Reference drawing showing process connections and instrumentation...', page: 4, confidence: 0.92 },
         { id: 'c2', document: 'Equipment Data Sheet — Process Summary', excerpt: 'Operating parameters and design conditions for all major equipment...', page: 1, confidence: 0.87 },
       ],
+    },
+    'p-101a': {
+      text: `I have engaged the full agent swarm to analyze Pump P-101A across all domains. Here is the comprehensive report:
+
+### 🛠️ Maintenance Agent (RCA)
+Root cause analysis indicates a recurring seal failure mode linked to thermal cycling during startup. The MTBF has dropped to 180 days. 
+**Recommendation**: Install thermal sleeve and modify the startup procedure to include a gradual warm-up phase. Estimated cost savings: ₹3.2L/year.
+
+### 🛡️ Compliance Agent
+Checked P-101A against OISD-117 and PESO regulations. 
+**Finding**: The surrounding fire water network pressure is below the required 7 kg/cm² (currently at 6.2 kg/cm²). 
+**Action**: Install a jockey pump at the dead-end section to maintain compliance.
+
+### 📚 Lessons Agent
+Searched historical incident database for similar centrifugal pump failures.
+**Warning**: A similar thermal cycling issue on Pump P-102B in 2023 led to a catastrophic seal blowout and minor fire. 
+**Action**: Highly recommend accelerating the thermal sleeve installation before the next scheduled PM in July 2026.
+
+### 🕸️ Knowledge Graph Agent
+I've updated the graph to link Pump P-101A -> "Thermal Cycling" (Failure Mode) -> "Pump Startup SOP" (Procedure). 
+The SOP document needs to be updated to reflect the new gradual warm-up phase.`,
+      citations: [
+        { id: 'c1', document: 'Pump P-101A Maintenance History', excerpt: '...recurring mechanical seal leaks observed post-startup...', page: 3, confidence: 0.98 },
+        { id: 'c2', document: 'Incident Report IR-2023-04', excerpt: '...P-102B seal blowout caused by rapid thermal expansion...', page: 1, confidence: 0.94 },
+        { id: 'c3', document: 'OISD-117 Compliance Checklist', excerpt: '...fire water network pressure must be maintained at 7 kg/cm²...', page: 12, confidence: 0.99 },
+      ]
     },
   };
 
@@ -159,7 +185,7 @@ I recommend reviewing the linked source documents for detailed specifications. T
       const q = query.toLowerCase();
       let demo = demoResponses.default;
       if (q.includes('pressure') || q.includes('v-301')) demo = demoResponses['v-301'] || demoResponses.default;
-      if (q.includes('p-101') || q.includes('pump')) demo = demoResponses['pump'] || demoResponses.default;
+      if (q.includes('p-101') || q.includes('pump') || q.includes('analysis')) demo = demoResponses['p-101a'] || demoResponses.default;
       await simulateStreaming(demo.text, demo.citations);
     }
   };
@@ -260,17 +286,57 @@ I recommend reviewing the linked source documents for detailed specifications. T
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col items-center justify-center h-full text-center"
+                className="flex flex-col items-center justify-center min-h-[60vh] text-center max-w-5xl mx-auto"
               >
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 border border-accent-blue/20 flex items-center justify-center mb-6">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 border border-accent-blue/20 flex items-center justify-center mb-4">
                   <Bot className="w-10 h-10 text-accent-blue" />
                 </div>
-                <h3 className="text-xl font-bold text-text-primary mb-2">Knowledge Copilot</h3>
-                <p className="text-sm text-text-secondary max-w-md mb-8">
+                <h3 className="text-2xl font-bold text-text-primary mb-2">Unified Asset & Operations Brain</h3>
+                <p className="text-sm text-text-secondary max-w-xl mb-10">
                   Ask me anything about plant operations, equipment, maintenance procedures, or regulatory compliance.
-                  I&apos;ll search through all indexed documents and the knowledge graph.
+                  Your query will be routed to the appropriate specialized AI agent.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg w-full">
+
+                {/* Multi-Agent Swarm Dashboard */}
+                <div className="w-full mb-10">
+                  <h4 className="text-sm font-semibold text-text-muted uppercase tracking-wider mb-4 flex items-center justify-center gap-2">
+                    <Sparkles className="w-4 h-4 text-accent-emerald" /> Available Swarm Agents
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-left">
+                    <div className="glass-card p-4 hover:border-accent-blue/50 transition-colors">
+                      <FileText className="w-6 h-6 text-accent-blue mb-2" />
+                      <h5 className="font-semibold text-text-primary text-sm mb-1">Document Agent</h5>
+                      <p className="text-xs text-text-muted">Extracts entities & text from PDFs and manuals</p>
+                    </div>
+                    <div className="glass-card p-4 hover:border-accent-amber/50 transition-colors">
+                      <Wrench className="w-6 h-6 text-accent-amber mb-2" />
+                      <h5 className="font-semibold text-text-primary text-sm mb-1">Maintenance Agent</h5>
+                      <p className="text-xs text-text-muted">Performs RCA and predicts equipment failures</p>
+                    </div>
+                    <div className="glass-card p-4 hover:border-accent-emerald/50 transition-colors">
+                      <ShieldCheck className="w-6 h-6 text-accent-emerald mb-2" />
+                      <h5 className="font-semibold text-text-primary text-sm mb-1">Compliance Agent</h5>
+                      <p className="text-xs text-text-muted">Audits against OISD, PESO & IS codes</p>
+                    </div>
+                    <div className="glass-card p-4 hover:border-accent-purple/50 transition-colors">
+                      <BookOpen className="w-6 h-6 text-accent-purple mb-2" />
+                      <h5 className="font-semibold text-text-primary text-sm mb-1">Lessons Agent</h5>
+                      <p className="text-xs text-text-muted">Flags similar historical incidents & near-misses</p>
+                    </div>
+                    <div className="glass-card p-4 hover:border-accent-cyan/50 transition-colors">
+                      <Share2 className="w-6 h-6 text-accent-cyan mb-2" />
+                      <h5 className="font-semibold text-text-primary text-sm mb-1">Knowledge Agent</h5>
+                      <p className="text-xs text-text-muted">Traverses graph for complex relationships</p>
+                    </div>
+                    <div className="glass-card p-4 hover:border-accent-rose/50 transition-colors bg-accent-rose/5">
+                      <Eye className="w-6 h-6 text-accent-rose mb-2" />
+                      <h5 className="font-semibold text-text-primary text-sm mb-1">P&ID Vision Agent</h5>
+                      <p className="text-xs text-text-muted">Analyzes schematics with multi-modal LLM</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl w-full">
                   {suggestedQuestions.slice(0, 4).map((q) => (
                     <motion.button
                       key={q}

@@ -284,7 +284,7 @@ export default function MaintenancePage() {
                       <div className="flex justify-between items-center p-3 rounded-lg bg-white/[0.03] border border-white/[0.05]">
                         <div>
                           <p className="text-xs text-text-muted mb-0.5">Last Maintenance</p>
-                          <p className="text-sm font-medium text-text-primary">
+                          <p className="text-sm font-medium text-text-primary" suppressHydrationWarning>
                             {new Date(selectedEq.lastMaintenance).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                           </p>
                         </div>
@@ -293,7 +293,7 @@ export default function MaintenancePage() {
                       <div className="flex justify-between items-center p-3 rounded-lg bg-accent-amber/10 border border-accent-amber/20">
                         <div>
                           <p className="text-xs text-accent-amber mb-0.5">Next Predicted PM</p>
-                          <p className="text-sm font-medium text-text-primary">
+                          <p className="text-sm font-medium text-text-primary" suppressHydrationWarning>
                             {new Date(selectedEq.nextMaintenance).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                           </p>
                         </div>
@@ -314,7 +314,7 @@ export default function MaintenancePage() {
                           <div key={idx} className="relative pl-6">
                             <div className={`absolute left-[-5px] top-1 w-2.5 h-2.5 rounded-full ring-4 ring-[#1a1f35] ${hist.type === 'Preventive' ? 'bg-accent-emerald' : 'bg-accent-rose'}`} />
                             <div className="mb-1 flex items-center justify-between">
-                              <span className="text-xs font-semibold text-text-primary">
+                              <span className="text-xs font-semibold text-text-primary" suppressHydrationWarning>
                                 {new Date(hist.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                               </span>
                               <span className={`text-[10px] uppercase px-2 py-0.5 rounded-full ${hist.type === 'Preventive' ? 'bg-accent-emerald/20 text-accent-emerald' : 'bg-accent-rose/20 text-accent-rose'}`}>

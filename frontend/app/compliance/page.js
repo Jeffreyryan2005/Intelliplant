@@ -195,7 +195,7 @@ export default function CompliancePage() {
                   <div className="w-px h-8 bg-white/10"></div>
                   <div className="text-center">
                     <p className="text-xs text-text-muted mb-1">Next Audit</p>
-                    <p className="text-sm font-semibold text-text-primary">
+                    <p className="text-sm font-semibold text-text-primary" suppressHydrationWarning>
                       {new Date(selectedReg.nextAudit).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </p>
                   </div>

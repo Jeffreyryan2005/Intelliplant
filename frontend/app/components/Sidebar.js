@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, FileText, MessageSquare, Share2,
   Wrench, ShieldCheck, ChevronLeft, ChevronRight,
-  Brain, Zap, Menu, X, BookOpen,
+  Brain, Zap, Menu, X, BookOpen, Clock,
 } from 'lucide-react';
 
 const navItems = [
@@ -18,6 +18,7 @@ const navItems = [
   { href: '/maintenance', label: 'Maintenance', icon: Wrench },
   { href: '/compliance', label: 'Compliance', icon: ShieldCheck },
   { href: '/lessons', label: 'Lessons Learned', icon: BookOpen },
+  { href: '/timeline', label: 'Industrial Memory', icon: Clock },
   { href: '/qms', label: 'Quality (QMS)', icon: ShieldCheck },
 ];
 
