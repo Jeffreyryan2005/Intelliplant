@@ -7,13 +7,15 @@ import {
 } from 'lucide-react';
 
 const DEMO_STEPS = [
-  { id: 'upload', title: 'Ingesting P&ID', agent: 'Document Agent', icon: FileText, duration: 2500, detail: 'BPL-PID-CDU-001.pdf parsed.' },
-  { id: 'vision', title: 'Vision AI Extraction', agent: 'Vision Agent', icon: Eye, duration: 3000, detail: 'Identified 12 equipment assets, 42 instruments.' },
-  { id: 'graph', title: 'Knowledge Graph Sync', agent: 'Knowledge Agent', icon: Share2, duration: 2500, detail: 'Linking P-101A to thermal cycling failure modes.' },
-  { id: 'rca', title: 'Predictive RCA', agent: 'Maintenance Agent', icon: Wrench, duration: 3000, detail: 'Seal leak predicted. MTBF: 180 days.' },
-  { id: 'compliance', title: 'Regulatory Audit', agent: 'Compliance Agent', icon: ShieldCheck, duration: 2500, detail: 'OISD-117 violation: Low fire water pressure.' },
-  { id: 'lessons', title: 'Historical DB Query', agent: 'Lessons Agent', icon: BookOpen, duration: 2500, detail: 'Warning: Matches 2023 Pump P-102B blowout.' },
-  { id: 'compile', title: 'Compiling Report', agent: 'Atlas OS', icon: Brain, duration: 2000, detail: 'Synthesizing multi-agent intelligence.' }
+  { id: 'upload', title: 'Upload P&ID', agent: 'Document Agent', icon: FileText, duration: 1500, detail: 'BPL-PID-CDU-001.pdf uploaded.' },
+  { id: 'vision', title: 'Vision AI extracts equipment', agent: 'Vision Agent', icon: Eye, duration: 2000, detail: 'Identified Pump P-101A and associated assets.' },
+  { id: 'graph', title: 'Knowledge Graph updates', agent: 'Knowledge Agent', icon: Share2, duration: 1500, detail: 'New nodes linked in the enterprise graph.' },
+  { id: 'ask', title: 'Technician asks question', agent: 'User Interaction', icon: Bot, duration: 1500, detail: '"Perform complete analysis on Pump P-101A"' },
+  { id: 'rag', title: 'RAG retrieves SOP + history', agent: 'Document Agent', icon: FileText, duration: 2000, detail: 'Retrieved maintenance logs and startup SOPs.' },
+  { id: 'rca', title: 'Maintenance Agent performs RCA', agent: 'Maintenance Agent', icon: Wrench, duration: 2500, detail: 'Seal leak predicted. Thermal cycling detected.' },
+  { id: 'compliance', title: 'Compliance Agent checks regulations', agent: 'Compliance Agent', icon: ShieldCheck, duration: 2000, detail: 'OISD-117 violation: Low fire water pressure.' },
+  { id: 'lessons', title: 'Lessons Engine finds similar incidents', agent: 'Lessons Agent', icon: BookOpen, duration: 2000, detail: 'Matches 2023 Pump P-102B blowout.' },
+  { id: 'recommend', title: 'AI recommends corrective actions', agent: 'Atlas OS', icon: Brain, duration: 1500, detail: 'Synthesizing multi-agent intelligence.' }
 ];
 
 export default function DemoOverlay({ onClose }) {

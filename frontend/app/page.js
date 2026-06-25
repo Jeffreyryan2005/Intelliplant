@@ -11,6 +11,7 @@ import {
   FileText, Brain, Cpu, ShieldCheck,
   Upload, MessageSquare, Share2,
   ArrowRight, Sparkles, Activity, Zap,
+  Bot, Wrench, Eye, BookOpen
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -104,20 +105,43 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="glass-card p-5 flex items-center justify-between border-l-4 border-accent-blue">
             <div>
-              <p className="text-sm font-semibold text-text-muted mb-1 uppercase tracking-wider">Potential Downtime Reduction</p>
+              <p className="text-sm font-semibold text-text-muted mb-1 uppercase tracking-wider">Predicted Downtime Reduction</p>
               <h3 className="text-3xl font-bold text-accent-blue">21<span className="text-lg text-text-muted ml-1">%</span></h3>
             </div>
             <Activity className="w-8 h-8 text-accent-blue/50" />
           </div>
           <div className="glass-card p-5 flex items-center justify-between border-l-4 border-accent-emerald">
             <div>
-              <p className="text-sm font-semibold text-text-muted mb-1 uppercase tracking-wider">Mean Time To Answer</p>
+              <p className="text-sm font-semibold text-text-muted mb-1 uppercase tracking-wider">Mean Time to Answer</p>
               <div className="flex items-end gap-3">
                 <h3 className="text-3xl font-bold text-accent-emerald">8<span className="text-lg text-text-muted ml-1">sec</span></h3>
                 <span className="text-sm text-text-muted line-through mb-1.5">17 min</span>
               </div>
             </div>
             <Zap className="w-8 h-8 text-accent-emerald/50" />
+          </div>
+        </div>
+
+        {/* Active Swarm Agents UI */}
+        <div className="glass-card p-5 border-t border-white/[0.06]">
+          <h2 className="text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <Bot className="w-4 h-4 text-accent-purple" />
+            Active Swarm Agents
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[
+              { label: 'Document Agent', icon: FileText, bg: 'bg-accent-blue/5', border: 'border-accent-blue/20', hover: 'hover:bg-accent-blue/10', text: 'text-accent-blue' },
+              { label: 'Maintenance Agent', icon: Wrench, bg: 'bg-accent-amber/5', border: 'border-accent-amber/20', hover: 'hover:bg-accent-amber/10', text: 'text-accent-amber' },
+              { label: 'Compliance Agent', icon: ShieldCheck, bg: 'bg-accent-emerald/5', border: 'border-accent-emerald/20', hover: 'hover:bg-accent-emerald/10', text: 'text-accent-emerald' },
+              { label: 'Lessons Agent', icon: BookOpen, bg: 'bg-accent-purple/5', border: 'border-accent-purple/20', hover: 'hover:bg-accent-purple/10', text: 'text-accent-purple' },
+              { label: 'P&ID Vision Agent', icon: Eye, bg: 'bg-accent-rose/5', border: 'border-accent-rose/20', hover: 'hover:bg-accent-rose/10', text: 'text-accent-rose' },
+              { label: 'Knowledge Agent', icon: Share2, bg: 'bg-accent-cyan/5', border: 'border-accent-cyan/20', hover: 'hover:bg-accent-cyan/10', text: 'text-accent-cyan' },
+            ].map((agent, i) => (
+              <div key={i} className={`flex flex-col items-center justify-center p-4 rounded-xl ${agent.bg} border ${agent.border} text-center gap-2 ${agent.hover} transition-colors`}>
+                <agent.icon className={`w-6 h-6 ${agent.text}`} />
+                <span className="text-[11px] font-bold text-text-primary uppercase tracking-wider">{agent.label}</span>
+              </div>
+            ))}
           </div>
         </div>
 
