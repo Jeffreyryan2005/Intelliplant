@@ -11,10 +11,10 @@ export const PLANT_INFO = {
 
 // ─── Dashboard Metrics ───────────────────────────────────────
 export const dashboardMetrics = {
-  documentsIngested: { value: 1247, trend: +12.5, label: 'Documents Ingested' },
-  knowledgeEntities: { value: 8432, trend: +8.3, label: 'Knowledge Entities' },
+  documentsIngested: { value: 12487, trend: +12.5, label: 'Documents Indexed' },
+  knowledgeEntities: { value: 84320, trend: +8.3, label: 'Knowledge Nodes' },
   activeEquipment: { value: 342, trend: -2.1, label: 'Active Equipment' },
-  complianceScore: { value: 87, trend: +3.2, label: 'Compliance Score' },
+  complianceScore: { value: 96, trend: +3.2, label: 'Compliance Score' },
 };
 
 export const recentActivity = [

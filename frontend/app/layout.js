@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "IntelliPlant — AI-Powered Industrial Knowledge Intelligence",
+  title: "Atlas AI — Industrial Brain OS",
   description:
     "Transform plant operations with AI-driven document intelligence, knowledge graphs, and predictive maintenance for the petrochemical industry.",
   keywords: ["industrial AI", "knowledge graph", "plant maintenance", "compliance", "document intelligence"],

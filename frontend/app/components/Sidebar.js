@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, FileText, MessageSquare, Share2,
   Wrench, ShieldCheck, ChevronLeft, ChevronRight,
-  Brain, Zap, Menu, X, BookOpen, Clock,
+  Brain, Zap, Menu, X, BookOpen, Clock, Network
 } from 'lucide-react';
 
 const navItems = [
@@ -19,6 +19,7 @@ const navItems = [
   { href: '/compliance', label: 'Compliance', icon: ShieldCheck },
   { href: '/lessons', label: 'Lessons Learned', icon: BookOpen },
   { href: '/timeline', label: 'Industrial Memory', icon: Clock },
+  { href: '/architecture', label: 'Architecture', icon: Network },
   { href: '/qms', label: 'Quality (QMS)', icon: ShieldCheck },
 ];
 
@@ -46,10 +47,10 @@ export default function Sidebar() {
               className="overflow-hidden whitespace-nowrap"
             >
               <h1 className="text-lg font-bold text-text-primary tracking-tight">
-                Intelli<span className="text-gradient">Plant</span>
+                Atlas <span className="text-gradient">AI</span>
               </h1>
               <p className="text-[10px] text-text-muted font-medium tracking-wider uppercase">
-                AI Knowledge Engine
+                Industrial Brain OS
               </p>
             </motion.div>
           )}

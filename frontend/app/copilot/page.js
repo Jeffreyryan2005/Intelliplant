@@ -251,9 +251,9 @@ The SOP document needs to be updated to reflect the new gradual warm-up phase.`,
               <div>
                 <h2 className="text-sm font-semibold text-text-primary flex items-center gap-2">
                   <Brain className="w-4 h-4 text-accent-purple" />
-                  Knowledge Copilot
+                  Atlas AI Copilot
                 </h2>
-                <p className="text-[11px] text-text-muted">AI-powered plant knowledge assistant</p>
+                <p className="text-[11px] text-text-muted">Industrial Brain OS assistant</p>
               </div>
             </div>
 
@@ -445,7 +445,7 @@ The SOP document needs to be updated to reflect the new gradual warm-up phase.`,
               </div>
             </div>
             <p className="text-[10px] text-text-muted text-center mt-2">
-              IntelliPlant Copilot searches across {1247} documents and {8432} knowledge entities
+              Atlas AI searches across {12487} documents and {84320} knowledge entities
             </p>
           </div>
         </div>

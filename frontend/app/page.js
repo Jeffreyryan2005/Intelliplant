@@ -8,7 +8,7 @@ import { dashboardMetrics, recentActivity, systemHealth, PLANT_INFO } from './li
 import {
   FileText, Brain, Cpu, ShieldCheck,
   Upload, MessageSquare, Share2,
-  ArrowRight, Sparkles, Activity,
+  ArrowRight, Sparkles, Activity, Zap,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -40,7 +40,7 @@ export default function DashboardPage() {
               </span>
             </div>
             <h1 className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
-              Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue via-accent-cyan to-accent-emerald">IntelliPlant</span>
+              Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue via-accent-cyan to-accent-emerald">Atlas AI</span>
             </h1>
             <p className="text-text-secondary text-base lg:text-lg max-w-2xl font-medium">
               {PLANT_INFO.name} <span className="opacity-40 px-2">•</span> {PLANT_INFO.location} <span className="opacity-40 px-2">•</span> {PLANT_INFO.capacity} Capacity
@@ -86,6 +86,27 @@ export default function DashboardPage() {
             color="emerald"
             delay={0.3}
           />
+        </div>
+
+        {/* Highlight Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="glass-card p-5 flex items-center justify-between border-l-4 border-accent-blue">
+            <div>
+              <p className="text-sm font-semibold text-text-muted mb-1 uppercase tracking-wider">Potential Downtime Reduction</p>
+              <h3 className="text-3xl font-bold text-accent-blue">21<span className="text-lg text-text-muted ml-1">%</span></h3>
+            </div>
+            <Activity className="w-8 h-8 text-accent-blue/50" />
+          </div>
+          <div className="glass-card p-5 flex items-center justify-between border-l-4 border-accent-emerald">
+            <div>
+              <p className="text-sm font-semibold text-text-muted mb-1 uppercase tracking-wider">Mean Time To Answer</p>
+              <div className="flex items-end gap-3">
+                <h3 className="text-3xl font-bold text-accent-emerald">8<span className="text-lg text-text-muted ml-1">sec</span></h3>
+                <span className="text-sm text-text-muted line-through mb-1.5">17 min</span>
+              </div>
+            </div>
+            <Zap className="w-8 h-8 text-accent-emerald/50" />
+          </div>
         </div>
 
         {/* Main Content Grid */}
