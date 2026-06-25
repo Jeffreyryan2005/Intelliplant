@@ -1,5 +1,4 @@
-<div align="center">
-  <img src="assets/hero.png" alt="Atlas AI Hero" width="100%" />
+
   
   # Atlas AI
   **Industrial Brain OS for Knowledge Intelligence**
